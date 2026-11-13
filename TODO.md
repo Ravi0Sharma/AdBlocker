@@ -65,8 +65,8 @@ och `node_modules/typescript` har sådana. Därför laddar Chrome bara `extensio
 ## Steg 2 – Popupen (bara utseende)
 
 - [x] `src/styles.css` – följ TODO:s i filen
-- [ ] `extension/popup.html` – följ TODO:s i filen
-- [ ] Testa: klicka på tilläggets ikon (pusselbiten → fäst AdBlocker så att den syns i verktygsfältet)
+- [x] `extension/popup.html` – följ TODO:s i filen
+- [x] Testa: klicka på tilläggets ikon (pusselbiten → fäst AdBlocker så att den syns i verktygsfältet)
 - 🤔 Beslut: frågans formulering. "Vill du se annonser?" (där **Nej** = blockera) eller "Vill du blockera annonser?"
   (där **Ja** = blockera)? Den första är roligare, den andra tydligare.
 - 🤔 Beslut: accentfärg, hur runda hörn, ljust/mörkt läge.
@@ -85,10 +85,10 @@ och `node_modules/typescript` har sådana. Därför laddar Chrome bara `extensio
 
 ## Steg 4 – popup.ts: knapparna gör något
 
-- [ ] `src/popup.ts` – följ TODO:s i filen
-- [ ] 🤔 Beslut: ska blockeringen vara på eller av innan användaren har valt? Sätt `enabled` i `manifest.json` därefter.
-- [ ] Testa: klicka **Nej** → Network-fliken visar blockeringar. Öppna popupen igen → klicka **Ja** → inga blockeringar.
-- [ ] Testa: stäng och öppna popupen. Visar statustexten rätt val?
+- [x] `src/popup.ts` – följ TODO:s i filen
+- [x] 🤔 Beslut: ska blockeringen vara på eller av innan användaren har valt? Sätt `enabled` i `manifest.json` därefter.
+- [x] Testa: klicka **Nej** → Network-fliken visar blockeringar. Öppna popupen igen → klicka **Ja** → inga blockeringar.
+- [x] Testa: stäng och öppna popupen. Visar statustexten rätt val?
 
 ---
 

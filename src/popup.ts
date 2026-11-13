@@ -32,6 +32,7 @@ async function toggelBlock(status: AdBlocker): Promise<void> {
             ? { enableRulesetIds: [REGELSETETS.id] }
             : { disableRulesetIds: [REGELSETETS.id] }
     );
+    await chrome.tabs.reload();
 }
 
 buttonYesState.addEventListener("click", async () => {
@@ -43,7 +44,6 @@ buttonNoState.addEventListener("click", async () => {
     await toggelBlock(false);
     StatusBlock(false);
 });
-
 
 
 // BONUS: Felhantering – vad händer om updateEnabledRulesets misslyckas? Testa try/catch och visa ett felmeddelande.
