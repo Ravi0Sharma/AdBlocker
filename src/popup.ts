@@ -34,33 +34,15 @@ async function toggelBlock(status: AdBlocker): Promise<void> {
     );
 }
 
-// TODO 6: Skriv en async-funktion som sparar valet och slår på/av blockeringen.
-//   TIPS: Signatur ungefär:  async function namn(param: DinTyp): Promise<void> { ... }
-//   TIPS: Spara:      await chrome.storage.local.set({ nyckel: värde })
-//         – vill du använda din konstant som nyckel? Kolla upp "computed property names": { [NYCKEL]: värde }
-//   TIPS: Slå på/av:  await chrome.declarativeNetRequest.updateEnabledRulesets({ ... })
-//         → fälten heter enableRulesetIds / disableRulesetIds och tar en array av strängar
-//   TIPS: Ternary-operatorn kan vara smidig:  villkor ? A : B
+buttonYesState.addEventListener("click", async () => {
+    await toggelBlock(true);
+    StatusBlock(true);
+});
 
-
-
-// TODO 7: Koppla knapparna till funktionen.
-//   TIPS: knapp.addEventListener("click", () => { ... })
-//   TIPS: INTE onclick="..." i HTML:en – det blockeras i tillägg.
-//   TIPS: Ska callbacken vara async så att du kan vänta (await) på att sparandet blev klart?
-//   TIPS: Efter sparandet: anropa funktionen från TODO 4.
-
-
-
-
-
-
-
-
-// TODO 8 (valfritt): Stäng popupen efter en liten stund.
-//   TIPS: setTimeout(() => { ... }, millisekunder)
-//   TIPS: window.close()
-//   BESLUT: Vill du ens det? Popupen stängs ju av sig själv när man klickar utanför.
+buttonNoState.addEventListener("click", async () => {
+    await toggelBlock(false);
+    StatusBlock(false);
+});
 
 
 
