@@ -1,0 +1,37 @@
+<!--
+  popup.html – rutan som visas när man klickar på tilläggets ikon.
+  Kopplas in via `action.default_popup` i manifest.json.
+-->
+
+
+<!-- TODO 1: Samma skelett som welcome.html (doctype, head, meta, title, länk till css/styles.css). -->
+
+
+
+<!-- TODO 2: Ge <body> en fast bredd.
+     TIPS: En popup blir lika stor som sitt innehåll. Utan bredd blir den pytteliten.
+     TIPS (Tailwind): w-72 eller w-80, p-4
+     TIPS: glöm inte dark: för bakgrund och text -->
+
+
+
+<!-- TODO 3: Rubrik + statustext.
+     TIPS: en <h1> med tilläggets namn och ett <p> med id för statusen ("Annonser blockeras")
+     BESLUT: Flex-rad med rubrik till vänster och reglaget till höger? (flex, items-center, justify-between) -->
+
+
+
+<!-- TODO 4: Ett på/av-reglage (toggle switch) – en klassisk Tailwind-övning!
+     TIPS: Struktur: en <label> som innehåller <input type="checkbox"> + en <div> (själva reglaget)
+     TIPS: Göm checkboxen visuellt men behåll den för skärmläsare: sr-only
+     TIPS: Ge checkboxen klassen `peer`. Då kan syskon-diven reagera med peer-checked:bg-...
+     TIPS: Reglagets bana: relative, h-6, w-11, rounded-full, bg-gray-300, transition
+     TIPS: Den runda "knoppen" kan göras med pseudo-elementet after:
+           after:absolute, after:top-0.5, after:left-0.5, after:size-5, after:rounded-full, after:bg-white
+           och flyttas med peer-checked:after:translate-x-5
+     TIPS: Glöm inte cursor-pointer på <label>
+     BESLUT: Text bredvid reglaget, eller bara reglaget? -->
+
+
+
+<!-- TODO 5: Ladda js/popup.js med type="module", sist i <body>. -->
