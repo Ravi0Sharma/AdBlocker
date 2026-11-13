@@ -8,19 +8,20 @@ const REGELSETETS = {
 
 const buttonYesState=  document.querySelector<HTMLButtonElement>("#ButtenYes");
 const buttonNoState =  document.querySelector<HTMLButtonElement>("#ButtenNo");
+const statusText = document.querySelector<HTMLButtonElement>("#StatusBlock");
 
 if (buttonYesState === null|| buttonNoState === null) throw new Error("Fick Null på en av knapparnas state");
 
 
-// TODO 4: Skriv en liten funktion som uppdaterar statustexten utifrån valet.
-//   TIPS: element.textContent = "..."
-//   TIPS: Du behöver den både i TODO 5 (när popupen öppnas) och TODO 7 (efter ett klick).
-//   BESLUT: Ska färgen ändras också? classList.toggle("klass", villkor) slår på/av en klass.
+function StatusBlock (blockerar: AdBlocker){
+if (statusText === null) throw new Error("Status Text är null")
+statusText.textContent = blockerar ? "Blockeras" : "Avstängd";
+}
 
-
+const result = await chrome.storage.local.get(REGELSETETS);
 
 // TODO 5: Läs det sparade valet när popupen öppnas och visa det.
-//   TIPS: const result = await chrome.storage.local.get(...)
+// 
 //   TIPS: Top-level await (await utanför en funktion) fungerar eftersom filen är en modul.
 //   TIPS: Hovra över `result` – är värdet `any` eller `unknown`? Är det `unknown` måste du
 //         kontrollera det innan du använder det (t.ex. med === eller typeof).
@@ -43,6 +44,11 @@ if (buttonYesState === null|| buttonNoState === null) throw new Error("Fick Null
 //   TIPS: INTE onclick="..." i HTML:en – det blockeras i tillägg.
 //   TIPS: Ska callbacken vara async så att du kan vänta (await) på att sparandet blev klart?
 //   TIPS: Efter sparandet: anropa funktionen från TODO 4.
+
+
+
+
+
 
 
 
