@@ -1,27 +1,15 @@
 
+type AdBlocker = boolean; 
 
+const REGELSETETS = {
+    id: "ads",
+    key: "blockAds"
+};
 
+const buttonYesState=  document.querySelector<HTMLButtonElement>("#ButtenYes");
+const buttonNoState =  document.querySelector<HTMLButtonElement>("#ButtenNo");
 
-
-
-
-
-
-
-// TODO 2: Skapa konstanter för regelsetets id och nyckeln du sparar valet under.
-//   TIPS: Regelsetets id ska vara EXAKT samma sträng som `id` under rule_resources i manifest.json.
-
-
-
-
-// TODO 3: Hämta knapparna och statustexten från HTML:en.
-//   TIPS: document.querySelector<HTMLButtonElement>("#ditt-id")
-//         – <...> är en "generic" som talar om för TS vilken sorts element det är.
-//   TIPS: Hovra över variabeln: typen är `HTMLButtonElement | null`. Varför null?
-//   BESLUT: Hur hanterar du null?
-//     - en if-sats som kastar ett fel / avbryter   (säkrast)
-//     - `!` efter uttrycket ("non-null assertion") (kortast, men då lovar du TS att det aldrig är null)
-
+if (buttonYesState === null|| buttonNoState === null) throw new Error("Fick Null på en av knapparnas state");
 
 
 // TODO 4: Skriv en liten funktion som uppdaterar statustexten utifrån valet.
