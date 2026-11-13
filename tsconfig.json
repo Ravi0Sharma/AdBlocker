@@ -1,0 +1,31 @@
+{
+  "compilerOptions": {
+    // Var filerna ligger: du skriver i src/, Chrome läser extension/js/
+    "rootDir": "./src",
+    "outDir": "./extension/js",
+
+    // Miljö: modern Chrome + ES-moduler (import/export, inte require)
+    "target": "esnext",
+    "module": "ES2022",
+    "moduleResolution": "bundler",
+    "lib": ["ESNext", "DOM"],
+    "types": ["chrome"],
+
+    // Felsökning: visar dina .ts-filer i DevTools
+    "sourceMap": true,
+    "inlineSources": true,
+
+    // Strikt typkontroll (stäng av de två sista om felen blir för förvirrande)
+    "strict": true,
+    "noUncheckedIndexedAccess": true,
+    "exactOptionalPropertyTypes": true,
+
+    // Modulregler
+    "verbatimModuleSyntax": true,
+    "isolatedModules": true,
+    "noUncheckedSideEffectImports": true,
+    "moduleDetection": "force",
+    "skipLibCheck": true
+  },
+  "include": ["src"]
+}
