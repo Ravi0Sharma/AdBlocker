@@ -1,23 +1,37 @@
-// popup.ts – logiken för rutan som öppnas när man klickar på tilläggets ikon.
-// Byggs till: extension/js/popup.js (laddas av popup.html)
-
-
-// BESLUT FÖRST: welcome.ts har redan koden för att spara valet och slå på/av blockeringen.
-//   - Kopiera den hit (enkelt, men då har du samma kod på två ställen)
-//   - Eller flytta den till src/shared.ts och använd export/import (bra övning!)
-//     TIPS: I shared.ts:  export function ... / export type ... / export const ...
-//     TIPS: Här:          import { ... } from "./shared.js";   ← .js, inte .ts!
-//           (webbläsaren läser den BYGGDA filen, och tsc skriver inte om sökvägen)
-//     TIPS: Kräver type="module" på <script>-taggen i HTML:en (det har du redan).
 
 
 
-// TODO 1: Hämta på/av-reglaget (checkboxen) och statustexten från HTML:en.
-//   TIPS: Samma som i welcome.ts – men vilken HTML...Element-typ har en <input>?
 
 
 
-// TODO 2: Läs det sparade valet när popupen öppnas.
+
+
+
+
+// TODO 2: Skapa konstanter för regelsetets id och nyckeln du sparar valet under.
+//   TIPS: Regelsetets id ska vara EXAKT samma sträng som `id` under rule_resources i manifest.json.
+
+
+
+
+// TODO 3: Hämta knapparna och statustexten från HTML:en.
+//   TIPS: document.querySelector<HTMLButtonElement>("#ditt-id")
+//         – <...> är en "generic" som talar om för TS vilken sorts element det är.
+//   TIPS: Hovra över variabeln: typen är `HTMLButtonElement | null`. Varför null?
+//   BESLUT: Hur hanterar du null?
+//     - en if-sats som kastar ett fel / avbryter   (säkrast)
+//     - `!` efter uttrycket ("non-null assertion") (kortast, men då lovar du TS att det aldrig är null)
+
+
+
+// TODO 4: Skriv en liten funktion som uppdaterar statustexten utifrån valet.
+//   TIPS: element.textContent = "..."
+//   TIPS: Du behöver den både i TODO 5 (när popupen öppnas) och TODO 7 (efter ett klick).
+//   BESLUT: Ska färgen ändras också? classList.toggle("klass", villkor) slår på/av en klass.
+
+
+
+// TODO 5: Läs det sparade valet när popupen öppnas och visa det.
 //   TIPS: const result = await chrome.storage.local.get(...)
 //   TIPS: Top-level await (await utanför en funktion) fungerar eftersom filen är en modul.
 //   TIPS: Hovra över `result` – är värdet `any` eller `unknown`? Är det `unknown` måste du
@@ -26,22 +40,31 @@
 
 
 
-// TODO 3: Sätt reglagets läge utifrån valet.
-//   TIPS: checkbox.checked = true / false
+// TODO 6: Skriv en async-funktion som sparar valet och slår på/av blockeringen.
+//   TIPS: Signatur ungefär:  async function namn(param: DinTyp): Promise<void> { ... }
+//   TIPS: Spara:      await chrome.storage.local.set({ nyckel: värde })
+//         – vill du använda din konstant som nyckel? Kolla upp "computed property names": { [NYCKEL]: värde }
+//   TIPS: Slå på/av:  await chrome.declarativeNetRequest.updateEnabledRulesets({ ... })
+//         → fälten heter enableRulesetIds / disableRulesetIds och tar en array av strängar
+//   TIPS: Ternary-operatorn kan vara smidig:  villkor ? A : B
 
 
 
-// TODO 4: När reglaget ändras – spara och slå på/av blockeringen.
-//   TIPS: Eventet för checkboxar heter "change", inte "click".
-//   TIPS: Inne i callbacken ger checkbox.checked det NYA läget.
+// TODO 7: Koppla knapparna till funktionen.
+//   TIPS: knapp.addEventListener("click", () => { ... })
+//   TIPS: INTE onclick="..." i HTML:en – det blockeras i tillägg.
+//   TIPS: Ska callbacken vara async så att du kan vänta (await) på att sparandet blev klart?
+//   TIPS: Efter sparandet: anropa funktionen från TODO 4.
 
 
 
-// TODO 5: Uppdatera statustexten ("Annonser blockeras" / "Annonser tillåts").
-//   TIPS: Gör det till en egen liten funktion – du behöver den både i TODO 3 och TODO 4.
-//   BESLUT: Ska färgen ändras också? classList.toggle("klass", villkor) slår på/av en klass.
+// TODO 8 (valfritt): Stäng popupen efter en liten stund.
+//   TIPS: setTimeout(() => { ... }, millisekunder)
+//   TIPS: window.close()
+//   BESLUT: Vill du ens det? Popupen stängs ju av sig själv när man klickar utanför.
 
 
 
+// BONUS: Felhantering – vad händer om updateEnabledRulesets misslyckas? Testa try/catch och visa ett felmeddelande.
 // BONUS: Badge på ikonen – chrome.action.setBadgeText({ ... })
 // BONUS: Vad är "sanningen" – värdet i storage, eller vad chrome.declarativeNetRequest.getEnabledRulesets() säger?

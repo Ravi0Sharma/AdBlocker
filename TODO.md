@@ -22,13 +22,11 @@ adBlocker/
 ├── TODO.md               ← den här filen
 ├── src/                  ← HÄR skriver du TypeScript + Tailwind-CSS
 │   ├── background.ts
-│   ├── welcome.ts
 │   ├── popup.ts
 │   └── styles.css
 └── extension/            ← DET HÄR är mappen Chrome laddar
     ├── manifest.json     ← skapar du i steg 1
     ├── rules.json        ← skapar du i steg 1
-    ├── welcome.html
     ├── popup.html
     ├── js/               ← byggs av tsc (rör inte)
     └── css/              ← byggs av Tailwind (rör inte)
@@ -64,45 +62,39 @@ och `node_modules/typescript` har sådana. Därför laddar Chrome bara `extensio
 
 ---
 
-## Steg 2 – Välkomstfönstret (bara utseende)
+## Steg 2 – Popupen (bara utseende)
 
 - [x] `src/styles.css` – följ TODO:s i filen
-- [ ] `extension/welcome.html` – följ TODO:s i filen
-- [ ] Testa: öppna `chrome-extension://<ditt-id>/welcome.html` i en flik (id:t står på tilläggskortet)
+- [ ] `extension/popup.html` – följ TODO:s i filen
+- [ ] Testa: klicka på tilläggets ikon (pusselbiten → fäst AdBlocker så att den syns i verktygsfältet)
 - 🤔 Beslut: frågans formulering. "Vill du se annonser?" (där **Nej** = blockera) eller "Vill du blockera annonser?"
   (där **Ja** = blockera)? Den första är roligare, den andra tydligare.
 - 🤔 Beslut: accentfärg, hur runda hörn, ljust/mörkt läge.
 
 ---
 
-## Steg 3 – background.ts öppnar fönstret
+## Steg 3 – background.ts öppnar popupen vid installation
 
 - [ ] `src/background.ts` – följ TODO:s i filen
-- [ ] Testa: ta bort tillägget och ladda in det igen. Fönstret ska dyka upp direkt.
+- [ ] Testa: ta bort tillägget och ladda in det igen. Popupen ska dyka upp direkt.
+- [ ] Öppnas den inte? Kolla konsolen under **"service worker"** på tilläggskortet.
+- 🤔 Beslut: `chrome.action.openPopup()` är inte lika pålitlig som en flik. Räcker det att användaren
+  kan klicka på ikonen om den inte öppnas av sig själv?
 
 ---
 
-## Steg 4 – welcome.ts: knapparna gör något
+## Steg 4 – popup.ts: knapparna gör något
 
-- [ ] `src/welcome.ts` – följ TODO:s i filen
-- [ ] Ändra `enabled` till `false` i `manifest.json`
-- [ ] Testa: klicka **Nej** → Network-fliken visar blockeringar. Installera om → klicka **Ja** → inga blockeringar.
-
----
-
-## Steg 5 – Popupen med på/av-reglage
-
-- [ ] `extension/popup.html` – följ TODO:s i filen
 - [ ] `src/popup.ts` – följ TODO:s i filen
-- 🤔 Beslut: koden som slår på/av blockeringen finns redan i welcome.ts. Ska du kopiera den, eller bryta ut den
-  till `src/shared.ts` med `export`/`import`? (Det senare är en bra TS-övning, se tipsen i popup.ts.)
+- [ ] 🤔 Beslut: ska blockeringen vara på eller av innan användaren har valt? Sätt `enabled` i `manifest.json` därefter.
+- [ ] Testa: klicka **Nej** → Network-fliken visar blockeringar. Öppna popupen igen → klicka **Ja** → inga blockeringar.
+- [ ] Testa: stäng och öppna popupen. Visar statustexten rätt val?
 
 ---
 
-## Steg 6 – Bonus
+## Steg 5 – Bonus
 
-- [ ] Visa antal blockerade annonser på ikonen: `chrome.declarativeNetRequest.setExtensionActionOptions(...)`
-  (hovra i VSCode för att se vilka fält som finns)
+- [ ] Byt knapparna mot ett på/av-reglage (se BONUS i `popup.html`)
 - [ ] Badge "ON"/"OFF" på ikonen: `chrome.action.setBadgeText(...)` + `setBadgeBackgroundColor(...)`
 - [ ] Fler domäner i `rules.json`
 - [ ] Animation när valet är gjort (`@keyframes` i styles.css)
@@ -116,9 +108,9 @@ och `node_modules/typescript` har sådana. Därför laddar Chrome bara `extensio
 | Problem | Lösning |
 |---|---|
 | Ändrat `manifest.json` eller `background.ts` | Klicka på reload-pilen på tilläggskortet i `chrome://extensions` |
-| Ändrat HTML, CSS, `welcome.ts` eller `popup.ts` | Räcker att ladda om sidan eller öppna popupen igen |
+| Ändrat HTML, CSS eller `popup.ts` | Räcker att öppna popupen igen |
 | Var är konsolen för background? | Länken **"service worker"** på tilläggskortet |
-| Var är konsolen för welcome/popup? | Högerklicka i sidan → **Inspektera** |
+| Var är konsolen för popupen? | Högerklicka i popupen → **Inspektera** |
 | Knappen gör ingenting | `onclick="..."` i HTML och kod direkt i `<script>` blockeras. Använd `addEventListener` i .ts-filen |
 | Tailwind-klass syns inte | Kör `watch:css`? Är klassnamnet skrivet i sin helhet (inte `"bg-" + färg`)? |
 | `chrome` är okänt i VSCode | `types: ["chrome"]` i tsconfig + `@types/chrome` installerat? Starta om TS-servern |

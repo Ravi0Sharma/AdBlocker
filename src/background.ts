@@ -18,17 +18,12 @@
 
 
 
-// TODO 3: Bygg den fullständiga adressen till välkomstsidan.
-//   TIPS: chrome.runtime.getURL("...") – sökvägen är relativ till extension/-mappen.
-//   TIPS: Spara i en `const`. Behöver du skriva typen själv, eller räknar TS ut den? (hovra!)
-
-
-
-// TODO 4: Öppna sidan.
-//   BESLUT: Ny flik eller ett riktigt litet fönster?
-//     - Flik:    chrome.tabs.create({ ... })
-//     - Fönster: chrome.windows.create({ ... })  → kolla fälten `type`, `width`, `height`
-//   TIPS: Båda returnerar ett Promise. Testa att göra callbacken `async` och använda `await`.
+// TODO 3: Öppna popupen.
+//   TIPS: chrome.action.openPopup() – öppnar samma popup som när man klickar på ikonen.
+//   TIPS: Den returnerar ett Promise. Testa att göra callbacken `async` och använda `await`.
+//   TIPS: Den kan misslyckas (t.ex. om inget webbläsarfönster har fokus). Vad händer då?
+//         Fånga felet med try/catch och logga det med console.error – syns under "service worker".
+//   BESLUT: Om den inte öppnas vid installationen – räcker det att användaren klickar på ikonen själv?
 
 
 
