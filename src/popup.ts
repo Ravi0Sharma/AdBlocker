@@ -8,7 +8,7 @@ const REGELSETETS = {
 
 const buttonYesState=  document.querySelector<HTMLButtonElement>("#ButtenYes");
 const buttonNoState =  document.querySelector<HTMLButtonElement>("#ButtenNo");
-const statusText = document.querySelector<HTMLButtonElement>("#StatusBlock");
+const statusText = document.querySelector<HTMLParagraphElement>("#StatusBlocker");
 
 if (buttonYesState === null|| buttonNoState === null) throw new Error("Fick Null på en av knapparnas state");
 
@@ -18,16 +18,21 @@ if (statusText === null) throw new Error("Status Text är null")
 statusText.textContent = blockerar ? "Blockeras" : "Avstängd";
 }
 
-const result = await chrome.storage.local.get(REGELSETETS);
+const result = await chrome.storage.local.get(REGELSETETS.key);
+const sparat = result[REGELSETETS.key];
+StatusBlock(typeof sparat === "boolean" ? sparat : true);
 
-// TODO 5: Läs det sparade valet när popupen öppnas och visa det.
-// 
-//   TIPS: Top-level await (await utanför en funktion) fungerar eftersom filen är en modul.
-//   TIPS: Hovra över `result` – är värdet `any` eller `unknown`? Är det `unknown` måste du
-//         kontrollera det innan du använder det (t.ex. med === eller typeof).
-//   TIPS: Vad ska hända om inget val är sparat än? Ett standardvärde?  värde ?? standard
+async function toggelBlock(status: AdBlocker): Promise<void> {
+    // 1. Lägg valet i lådan "blockAds"
+    await chrome.storage.local.set({ [REGELSETETS.key]: status });
 
-
+    // 2. Slå på eller av regelsetet "ads"
+    await chrome.declarativeNetRequest.updateEnabledRulesets(
+        status
+            ? { enableRulesetIds: [REGELSETETS.id] }
+            : { disableRulesetIds: [REGELSETETS.id] }
+    );
+}
 
 // TODO 6: Skriv en async-funktion som sparar valet och slår på/av blockeringen.
 //   TIPS: Signatur ungefär:  async function namn(param: DinTyp): Promise<void> { ... }
