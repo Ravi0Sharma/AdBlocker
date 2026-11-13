@@ -4,10 +4,6 @@
     "version": "0.1.0",
     "description": "Frågar om du vill se annonser och blockerar dem om du säger nej.",
     "permissions": ["declarativeNetRequest", "storage"],
-    "background": {
-        "service_worker": "js/background.js",
-        "type": "module"
-    },
     "action": {
         "default_title": "AdBlocker",
         "default_popup": "popup.html"

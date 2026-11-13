@@ -15,7 +15,7 @@ if (buttonYesState === null|| buttonNoState === null) throw new Error("Fick Null
 
 function StatusBlock (blockerar: AdBlocker){
 if (statusText === null) throw new Error("Status Text är null")
-statusText.textContent = blockerar ? "Blockeras" : "Avstängd";
+statusText.textContent = blockerar ? "Saltat. Annonser blockeras" : "Osaltat. Annonser tillåts";
 }
 
 const result = await chrome.storage.local.get(REGELSETETS.key);
@@ -44,8 +44,3 @@ buttonNoState.addEventListener("click", async () => {
     await toggelBlock(false);
     StatusBlock(false);
 });
-
-
-// BONUS: Felhantering – vad händer om updateEnabledRulesets misslyckas? Testa try/catch och visa ett felmeddelande.
-// BONUS: Badge på ikonen – chrome.action.setBadgeText({ ... })
-// BONUS: Vad är "sanningen" – värdet i storage, eller vad chrome.declarativeNetRequest.getEnabledRulesets() säger?
